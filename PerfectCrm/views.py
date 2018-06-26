@@ -12,13 +12,15 @@ def acc_login(request):
         password = request.POST.get('password')
 
         print(username,password)
-
+        #验证用户名密码
         user = authenticate(username=username,password=password)
         if user:
             print("passed authencation",user)
+
+            #登录
             login(request,user)
             #request.user = user
-
+            print(request.GET.get('next'))
             return  redirect( request.GET.get('next','/') )
         else:
             error_msg = "Wrong username or password!"
@@ -26,6 +28,7 @@ def acc_login(request):
 
 
 def acc_logout(request):
+    #退出登录
     logout(request)
     return redirect("/login/")
 
